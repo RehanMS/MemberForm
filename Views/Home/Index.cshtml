@@ -1,0 +1,106 @@
+﻿@model IEnumerable<MemberForm.Models.RegistrationVM>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<h1 class=" alert alert-warning text-center">All Member Information</h1>
+
+<script>
+    $(document).ready(function () {
+        $("#Id").on("keyup", function () {
+            var txtenter = $(this).val();
+            $("table tr").each(function (results) {
+                if (results !== 0) {
+                    var id = $(this).find("td:nth-child(1)").text();
+                    if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+<div class="d-flex justify-content-between">
+    <div>
+        <a href="/Home/Register" class="btn btn-success w-100 ms-2 mb-3">Register New Member</a>
+    </div>
+   
+    <div class="me-3">
+        <input class="form-control" type="text" placeholder="Search by Id" id="Id" name="Id" />
+    </div>
+</div>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JoiningDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InvestmentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tenure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDProof)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoiningDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvestmentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tenure)
+            </td>
+            <td>
+                @{
+                    var base64 = Convert.ToBase64String(item.IDProofLength);
+                    string srcAd = string.Format("data:img/gif;base64,{0}", base64);
+                }
+                <img src="@srcAd" alt="IdProof" style="width:100px;" />
+            </td>
+            <td>
+                @{
+                    var base642 = Convert.ToBase64String(item.PhotoLength);
+                    string srcAd2 = string.Format("data:img/gif;base64,{0}", base642);
+                }
+                <img src="@srcAd2" alt="IdProof" style="width:100px;" />
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Update", new { id=item.MemberId }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.MemberId })*@
+                <a class="btn btn-outline-info" href="/Home/Details/@item.MemberId">Details</a>
+                <a class="btn btn-outline-warning" href="/Home/Update/@item.MemberId">Update</a>
+            </td>
+        </tr>
+    }
+
+</table>

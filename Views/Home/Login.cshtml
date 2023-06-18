@@ -1,0 +1,35 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="row justify-content-center align-items-center mt-5">
+        <form action="" method="post" class=" border border-3 border-info rounded-3 alert alert-success p-3 w-50">
+            <h2 class="text-center alert alert-warning">Login Page</h2>
+            <div class="text-center">
+                <label class="p-2 fw-bold">User Name</label>
+                <div>
+                    <input class="rounded-3 border-info" name="Username" type="text" required/>
+                </div>
+                <label class="p-2 fw-bold">Password</label>
+                <div>
+                    <input class="rounded-3 border-info" name="Password" type="password" required/>
+                </div>
+                <input type="submit" value="Login" class="btn btn-outline-warning p-2 m-2" style="width:30%" />
+            </div>
+            @if (IsPost)
+            {
+                if (ViewBag.Msg != null)
+                {
+                    <h3 class="tex">@ViewBag.Msg</h3>
+                }
+            }
+        </form>
+    </div>
+</body>
+</html>

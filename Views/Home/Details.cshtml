@@ -1,0 +1,61 @@
+﻿@model MemberForm.Models.RegistrationVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div style="left: 32%; position: relative; width:450px" class="form-horizontal card p-4">
+    <h4 style="text-align:center; width:400px" class="alert alert-warning">Member Details</h4>
+    @Html.HiddenFor(model => model.MemberId)
+<table class="table table-bordered table-striped" style="width:400px;">
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.Name)</th>
+        <td>@Html.DisplayFor(model => model.Name)</td>
+    </tr>
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.ContactNo)</th>
+        <td>@Html.DisplayFor(model => model.ContactNo)</td>
+    </tr>
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.JoiningDate)</th>
+        <td>@Html.DisplayFor(model => model.JoiningDate)</td>
+    </tr>
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.InvestmentDate)</th>
+        <td>@Html.DisplayFor(model => model.InvestmentDate)</td>
+    </tr>
+
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.Tenure)</th>
+        <td>@Html.DisplayFor(model => model.Tenure)</td>
+    </tr>
+
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.IDProof)</th>
+        <td>
+            @{
+                var base64 = Convert.ToBase64String(Model.IDProofLength);
+                string srcAd = string.Format("data:img/gif;base64,{0}", base64);
+            }
+            <img src="@srcAd" alt="IdProof" style="width:100px;" />
+        </td>
+    </tr>
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.Photo)</th>
+        <td>
+            @{
+                var base642 = Convert.ToBase64String(Model.PhotoLength);
+                string srcAd2 = string.Format("data:img/gif;base64,{0}", base642);
+            }
+            <img src="@srcAd2" alt="IdProof" style="width:100px;" />
+        </td>
+    </tr>
+</table>
+    <p>
+        @Html.ActionLink("Edit", "Update", new { id = Model.MemberId }, new { @class = "btn btn-warning" }) |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info" })
+    </p>
+</div>
+

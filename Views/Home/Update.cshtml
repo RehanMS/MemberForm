@@ -1,0 +1,235 @@
+﻿@model MemberForm.Models.RegistrationViewModel
+
+@{
+    ViewBag.Title = "Update";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#updateName').click(function () {
+            var namedata = {
+                id: $('#MemberId').val(),
+                Name: $('#Name').val(),
+            }
+            $.ajax({
+                url: '/Home/UpdateName',
+                data: namedata,
+                type: 'POST',
+                success: function (response) {
+                    window.location.href = 'http://localhost:52866/Home/index';
+                }
+            });
+        });
+
+
+        $('.contactupdt').click(function () {
+            var contactdata = {
+                id: $('#MemberId').val(),
+                ContactNo: $('#ContactNo').val(),
+            }
+            $.ajax({
+                url: '/Home/UpdateContactNo',
+                data: contactdata,
+                type: 'POST',
+                success: function (response) {
+                    window.location.href = 'http://localhost:52866/Home/index';
+                }
+            });
+        });
+
+        $('.joiningupdt').click(function () {
+            var joindata = {
+                id: $('#MemberId').val(),
+                JoiningDate: $('#JoiningDate').val(),
+            }
+            $.ajax({
+                url: '/Home/UpdateJoiningDate',
+                data: joindata,
+                type: 'POST',
+                success: function (response) {
+                    window.location.href = 'http://localhost:52866/Home/index';
+                }
+            });
+        });
+        
+
+        $('.investmentupdt').click(function () {
+            var formData = {
+                id: $('#MemberId').val(),
+                InvestmentDate: $('#InvestmentDate').val(),
+            }
+            $.ajax({
+                url: '/Home/UpdateInvestmentDate',
+                data: formData,
+                type: 'POST',
+                success: function (response) {
+                    window.location.href = 'http://localhost:52866/Home/index';
+                }
+            }); 
+        });
+
+        $('#uptdidproof').click(function () {
+            var id = $('#MemberId').val();
+            var idproof = new FormData();
+            var files = $('#IDProof').get(0).files;
+            idproof.append('IDProof', files[0]);
+            idproof.append('MemberId', id);
+            debugger;
+            console.log(files + 'data');
+            $.ajax({
+                url: '/Home/UpdateIDProof',
+                data: idproof,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function (response) {
+                    window.location.href = 'http://localhost:52866/Home/index';
+                }
+            });
+        });
+
+        $('#uptdphoto').click(function () {
+            var id = $('#MemberId').val();
+            var idproof = new FormData();
+            var files = $('#Photo').get(0).files;
+            idproof.append('Photo', files[0]);
+            idproof.append('MemberId', id);
+            debugger;
+            console.log(files + 'data');
+            $.ajax({
+                url: '/Home/UpdatePhoto',
+                data: idproof,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function (response) {
+                    window.location.href = 'http://localhost:52866/Home/index';
+                }
+            });
+        });
+    });
+   
+
+</script>
+
+@using (Html.BeginForm("Update", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+     
+
+<div style="left:32%; position:relative;">
+    <div class="form-horizontal card p-4" style="width:450px">
+        <h4 style="text-align:center;" class="alert alert-warning">Update Member</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.HiddenFor(model => model.MemberId)
+            @*@Html.LabelFor(model => model.MemberId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MemberId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MemberId, "", new { @class = "text-danger" })
+            </div>*@
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label  mb-2" })
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-lg-8">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @*<a class="btn btn-outline-dark" id="update" href="/Home/UpdateName/@Model.MemberId">Update</a>*@
+            </div>
+            <div class="col-2">
+                <a class="btn btn-outline-dark" style="width:110px" id="updateName">Update</a>
+            </div>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label mb-2" })
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-lg-8">
+                @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                @*<a class="btn btn-outline-dark" href="/Home/UpdateContactNo/@Model.MemberId">Update</a>*@
+            </div>
+            <div class="col-2">
+                <a class="btn btn-outline-dark contactupdt" style="width:110px">Update</a>
+            </div>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.JoiningDate, htmlAttributes: new { @class = "control-label mb-2" })
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-lg-8">
+                @Html.TextBoxFor(model => model.JoiningDate, new { @type = "date", @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.JoiningDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-2">
+                <a class="btn btn-outline-dark joiningupdt" style="width:110px">Update</a>
+            </div>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.InvestmentDate, htmlAttributes: new { @class = "control-label mb-2" })
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-lg-8">
+                @Html.TextBoxFor(model => model.InvestmentDate, new { @type = "date", @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.InvestmentDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-2">
+                <a class="btn btn-outline-dark investmentupdt" style="width:110px">Update</a>
+            </div>
+        </div>
+        <div>
+            @Html.DisplayNameFor(model => model.IDProof)
+                @{
+                    var base64 = Convert.ToBase64String(Model.IDProofLength);
+                    string srcAd = string.Format("data:img/gif;base64,{0}", base64);
+                }
+                <img src="@srcAd" alt="IdProof" style="width:100px;" />
+            
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.IDProof, htmlAttributes: new { @class = "control-label mb-2" })
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-lg-8">
+                @Html.TextBoxFor(model => model.IDProof, htmlAttributes: new { @type = "file", @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.IDProof, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-2">
+                <a class="btn btn-outline-dark" id="uptdidproof" style="width:110px">Update</a>
+            </div>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label mb-2" })
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-lg-8">
+                @Html.TextBoxFor(model => model.Photo, htmlAttributes: new { @type = "file", @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-2">
+                <a class="btn btn-outline-dark" id="uptdphoto" style="width:110px">Update</a>
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" value="Update All Details" class="btn btn-outline-warning" style="margin-top:8%" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-info", style = "margin-top:8%" })
+        </div>
+    </div>
+</div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
